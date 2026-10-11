@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tools for everyday tasks.">
+    <title>SmartTools AI - Free Online Tools</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7ff;
+            color: #172033;
+        }
+
+        header {
+            background: #111c3a;
+            color: white;
+            padding: 22px 16px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 0;
+            color: #cbd5ff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 38px 16px 24px;
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #596579;
+            line-height: 1.6;
+        }
+
+        .search {
+            display: block;
+            width: 100%;
+            max-width: 480px;
+            margin: 22px auto 0;
+            padding: 14px;
+            border: 1px solid #d5dbea;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            max-width: 1000px;
+            margin: 20px auto 45px;
+            padding: 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px #1720330d;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #263fbd;
+        }
+
+        .card p {
+            color: #596579;
+            line-height: 1.6;
+        }
+
+        .card input,
+        .card textarea {
+            width: 100%;
+            padding: 11px;
+            margin: 6px 0;
+            border: 1px solid #d5dbea;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .card textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            background: #354ee8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2338bd;
+        }
+
+        .result {
+            overflow-wrap: anywhere;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            background: #111c3a;
+            color: white;
+            padding: 25px 15px;
+            line-height: 2;
+        }
+
+        footer a {
+            color: #cbd5ff;
+            margin: 0 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>⚡ SmartTools AI</h1>
+    <p>Free Online Tools for Everyone</p>
+</header>
+
+<section class="hero">
+    <h2>Make Your Work Easier 🚀</h2>
+    <p>Use simple and free online tools directly in your browser.</p>
+
+    <input
+        class="search"
+        id="search"
+        type="search"
+        placeholder="Search tools..."
+        oninput="searchTools()"
+        aria-label="Search tools"
+    >
+</section>
+
+<main class="tools" id="tools">
+
+    <section class="card" data-name="word counter text counter">
+        <h3>📝 Word Counter</h3>
+        <p>Count words and characters in your text.</p>
+
+        <textarea
+            id="textInput"
+            placeholder="Type or paste your text here..."
+            oninput="countWords()"
+            aria-label="Text to count"
+        ></textarea>
+
+        <div class="result" id="wordResult">
+            Words: 0 | Characters: 0
+        </div>
+    </section>
+
+    <section class="card" data-name="percentage calculator">
+        <h3>🔢 Percentage Calculator</h3>
+        <p>Calculate a percentage of any number.</p>
+
+        <input
+            id="percent"
+            type="number"
+            placeholder="Percentage (%)"
+            aria-label="Percentage"
+        >
+
+        <input
+            id="number"
+            type="number"
+            placeholder="Enter a number"
+            aria-label="Number"
+        >
+
+        <button onclick="calculatePercentage()">Calculate</button>
+
+        <div class="result" id="percentResult" aria-live="polite"></div>
+    </section>
+
+    <section class="card" data-name="case converter uppercase lowercase">
+        <h3>🔠 Text Case Converter</h3>
+        <p>Convert English text to uppercase or lowercase.</p>
+
+        <textarea
+            id="caseInput"
+            placeholder="Enter English text..."
+            aria-label="Text to convert"
+        ></textarea>
+
+        <button onclick="convertCase('upper')">UPPERCASE</button>
+        <button onclick="convertCase('lower')">lowercase</button>
+
+        <div class="result" id="caseResult" aria-live="polite"></div>
+    </section>
+
+</main>
+
+<footer>
+    <p>© <span id="year"></span> SmartTools AI</p>
+    <a href="about.html">About Us</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="contact.html">Contact Us</a>
+</footer>
+
+<script>
+    function countWords() {
+        const text = document.getElementById("textInput").value.trim();
+
+        const words = text ? text.split(/\s+/).length : 0;
+        const characters = document.getElementById("textInput").value.length;
+
+        document.getElementById("wordResult").textContent =
+            "Words: " + words + " | Characters: " + characters;
+    }
+
+    function calculatePercentage() {
+        const percentage = document.getElementById("percent").value;
+        const number = document.getElementById("number").value;
+        const result = document.getElementById("percentResult");
+
+        if (percentage === "" || number === "") {
+            result.textContent = "Please enter both numbers.";
+            return;
+        }
+
+        result.textContent =
+            "Result: " + ((Number(percentage) / 100) * Number(number));
+    }
+
+    function convertCase(type) {
+        const text = document.getElementById("caseInput").value;
+
+        const converted = type === "upper"
+            ? text.toUpperCase()
+            : text.toLowerCase();
+
+        document.getElementById("caseResult").textContent = converted;
+    }
+
+    function searchTools() {
+        const query = document.getElementById("search").value.toLowerCase();
+
+        document.querySelectorAll(".card").forEach(function(card) {
+            const name = card.dataset.name.toLowerCase();
+            card.style.display = name.includes(query) ? "" : "none";
+        });
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
